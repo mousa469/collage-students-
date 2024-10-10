@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:students_collage/features/authentication/presentation/views/register_view.dart';
 import 'package:students_collage/features/authentication/presentation/views/sign_in_view.dart';
 
 class AppRouter {
@@ -12,7 +13,7 @@ class AppRouter {
     ),
     GoRoute(
       path: kRegisterview,
-      builder: (context, state) => const SignInView(),
+      builder: (context, state) => const RegisterView(),
     ),
   ]);
 }
