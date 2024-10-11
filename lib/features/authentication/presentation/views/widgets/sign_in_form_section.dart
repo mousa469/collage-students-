@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/app_router.dart';
 import 'package:students_collage/core/utils/styles.dart';
@@ -6,19 +7,20 @@ import 'package:students_collage/features/authentication/presentation/views/widg
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_form_field.dart';
 
-class FromSection extends StatefulWidget {
-  const FromSection({super.key});
+class SignInFromSection extends StatefulWidget {
+  const SignInFromSection({super.key});
 
   @override
-  State<FromSection> createState() => _FromSectionState();
+  State<SignInFromSection> createState() => _SignInFromSectionState();
 }
 
-class _FromSectionState extends State<FromSection> {
+class _SignInFromSectionState extends State<SignInFromSection> {
   GlobalKey<FormState> formKey = GlobalKey();
   bool isnull = false;
   Icon emailIcon = const Icon(Icons.email);
   Icon passwordIcon = const Icon(Icons.password);
   Color suffixIconColor = kPrimaryColor;
+  bool isSecured = true; 
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -33,12 +35,10 @@ class _FromSectionState extends State<FromSection> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            "username or email",
-            style: Styles.textStyle14,
-          ),
+
           const SizedBox(),
           CustomTextFormField(
+            hintText: "Email ",
             suffixIconColor: suffixIconColor,
             suffixIcon: IconButton(
               onPressed: () {},
@@ -46,22 +46,33 @@ class _FromSectionState extends State<FromSection> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
-          const Text(
-            "Password",
-            style: Styles.textStyle14,
-          ),
+
           CustomTextFormField(
+            hintText: "Password",
             suffixIconColor: suffixIconColor,
-            isSecured: true,
+            isSecured: isSecured,
             suffixIcon: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if (isSecured == true) {
+                  setState(() {
+                    passwordIcon = const Icon(Icons.remove_red_eye);
+                    isSecured = false;
+                  });
+                } else {
+                  setState(() {
+                     passwordIcon = const Icon(Icons.password);
+                  isSecured = true;
+                  });
+                 
+                }
+              },
               icon: passwordIcon,
             ),
           ),
           const SizedBox(
-            height: 5,
+            height: 10,
           ),
 
           Row(
@@ -97,9 +108,12 @@ class _FromSectionState extends State<FromSection> {
             ),
           ),
           //  Align(child: Text(" Sign up " , style: Styles.textStyle14,),),
-          const Align(
+          Align(
               child: CustomNavigatorTextButton(
-                  text: "Sign up", onPressedLocation: AppRouter.kRegisterview))
+                  text: "Sign up",
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRouter.kRegisterview);
+                  }))
         ],
       ),
     );

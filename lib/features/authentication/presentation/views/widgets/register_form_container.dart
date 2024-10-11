@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:students_collage/constants.dart';
-import 'package:students_collage/features/authentication/presentation/views/widgets/sign_in_form_section.dart';
+import 'package:students_collage/features/authentication/presentation/views/widgets/register_from_section.dart';
 
-class SignInFormContainer extends StatelessWidget {
-  const SignInFormContainer({super.key});
+class RegisterFormContainer extends StatelessWidget {
+  const RegisterFormContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,10 @@ class SignInFormContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 color: kSecondaryColor,
                 borderRadius: BorderRadius.circular(16)),
-            child: const Padding(
-                padding: EdgeInsets.all(30.0), child: SingleChildScrollView(child: SignInFromSection())),
+            child: const  Padding(
+              padding:  EdgeInsets.all(30.0),
+              child: SingleChildScrollView(child: RegisterFormSection())
+            ),
           ),
         ),
       ),

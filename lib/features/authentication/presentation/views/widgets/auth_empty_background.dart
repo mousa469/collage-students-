@@ -11,7 +11,7 @@ class AuthEmptyBackground extends StatelessWidget {
     return  Padding(
             padding: const EdgeInsets.only(left: 40),
             child: SizedBox(
-              height: 520,
+              height: 490,
               child: AspectRatio(
                 aspectRatio: 0.6,
                 child: Container(
