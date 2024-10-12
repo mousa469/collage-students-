@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:students_collage/core/utils/app_router.dart';
 import 'package:students_collage/core/utils/styles.dart';
 
 class CustomNavigatorTextButton extends StatelessWidget {
-  const CustomNavigatorTextButton({super.key, required this.text, required this.onPressedLocation});
+  const CustomNavigatorTextButton(
+      {super.key, required this.text,  required this.onPressed});
 
   final String text;
-  final String onPressedLocation;
+
+ final  VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () {
-          GoRouter.of(context).push(onPressedLocation);
-        },
+        onPressed: onPressed,
         child: Text(
           text,
           style: Styles.textStyle14.copyWith(color: Colors.black),

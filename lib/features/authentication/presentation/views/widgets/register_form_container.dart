@@ -6,10 +6,10 @@ import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/app_router.dart';
 import 'package:students_collage/core/widgets/custom_snack_bar.dart';
 import 'package:students_collage/features/authentication/presentation/manager/auth_cubit/cubit/auth_cubit.dart';
-import 'package:students_collage/features/authentication/presentation/views/widgets/sign_in_form_section.dart';
+import 'package:students_collage/features/authentication/presentation/views/widgets/register_from_section.dart';
 
-class SignInFormContainer extends StatelessWidget {
-  const SignInFormContainer({super.key});
+class RegisterFormContainer extends StatelessWidget {
+  const RegisterFormContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,15 @@ class SignInFormContainer extends StatelessWidget {
       listener: (context, state) {
         if (state is AuthSuccess) {
           GoRouter.of(context).push(AppRouter.kHomeView, extra: state.email);
-          customSnackBar(
-              errMessage: "signed in successfully", context: context);
+          customSnackBar(errMessage: "registered successfully" , context: context);
         }
-        if (state is Authfailure) {
+          if (state is Authfailure) {
           customSnackBar(errMessage: state.errMessage, context: context);
+          
         }
       },
       builder: (context, state) {
+      
         return Positioned(
           bottom: 45,
           child: SizedBox(
@@ -36,14 +37,12 @@ class SignInFormContainer extends StatelessWidget {
                     color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(16)),
                 child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: ModalProgressHUD(
-                    inAsyncCall: state is Authloading,
-                    child: const SingleChildScrollView(
-                      child: SignInFromSection(),
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(30.0),
+                    child: ModalProgressHUD(
+                      inAsyncCall: state is Authloading ,
+                      child: const SingleChildScrollView(
+                          child: RegisterFormSection()),
+                    )),
               ),
             ),
           ),

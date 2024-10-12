@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:students_collage/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
-      {super.key, required this.suffixIcon, this.isSecured = false, required this.suffixIconColor});
+      {super.key, required this.suffixIcon, this.isSecured = false, required this.suffixIconColor, required this.hintText, required this.controller});
 
   final IconButton suffixIcon;
   final bool isSecured;
  final  Color suffixIconColor ;
+ final String hintText ;
+ final TextEditingController controller ;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "field is required ";
@@ -22,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
       style: const TextStyle(fontSize: 12),
       
       decoration: InputDecoration(
+        hintText: hintText  ,
         
         
         suffixIcon: suffixIcon,
