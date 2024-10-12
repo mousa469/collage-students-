@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/app_router.dart';
 import 'package:students_collage/core/utils/styles.dart';
+import 'package:students_collage/features/authentication/presentation/manager/auth_cubit/cubit/auth_cubit.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_navigator_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_form_field.dart';
@@ -20,9 +22,9 @@ class _SignInFromSectionState extends State<SignInFromSection> {
   Icon emailIcon = const Icon(Icons.email);
   Icon passwordIcon = const Icon(Icons.password);
   Color suffixIconColor = kPrimaryColor;
-  bool isSecured = true; 
-  TextEditingController emailController = TextEditingController() ;
-  TextEditingController passwordController = TextEditingController() ;
+  bool isSecured = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -66,10 +68,9 @@ class _SignInFromSectionState extends State<SignInFromSection> {
                   });
                 } else {
                   setState(() {
-                     passwordIcon = const Icon(Icons.password);
-                  isSecured = true;
+                    passwordIcon = const Icon(Icons.password);
+                    isSecured = true;
                   });
-                 
                 }
               },
               icon: passwordIcon,
@@ -85,6 +86,9 @@ class _SignInFromSectionState extends State<SignInFromSection> {
                   text: "Sign in ",
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
+                      BlocProvider.of<AuthCubit>(context).signInUser(
+                          password: passwordController.text,
+                          email: emailController.text);
                     } else {
                       setState(() {
                         suffixIconColor = Colors.red;
