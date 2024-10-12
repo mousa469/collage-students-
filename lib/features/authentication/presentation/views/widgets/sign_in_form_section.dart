@@ -21,6 +21,8 @@ class _SignInFromSectionState extends State<SignInFromSection> {
   Icon passwordIcon = const Icon(Icons.password);
   Color suffixIconColor = kPrimaryColor;
   bool isSecured = true; 
+  TextEditingController emailController = TextEditingController() ;
+  TextEditingController passwordController = TextEditingController() ;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -38,6 +40,7 @@ class _SignInFromSectionState extends State<SignInFromSection> {
 
           const SizedBox(),
           CustomTextFormField(
+            controller: emailController,
             hintText: "Email ",
             suffixIconColor: suffixIconColor,
             suffixIcon: IconButton(
@@ -50,6 +53,7 @@ class _SignInFromSectionState extends State<SignInFromSection> {
           ),
 
           CustomTextFormField(
+            controller: passwordController,
             hintText: "Password",
             suffixIconColor: suffixIconColor,
             isSecured: isSecured,

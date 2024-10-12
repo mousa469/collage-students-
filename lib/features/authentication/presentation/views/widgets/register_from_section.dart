@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/styles.dart';
+import 'package:students_collage/features/authentication/data/models/student_model.dart';
+import 'package:students_collage/features/authentication/presentation/manager/auth_cubit/cubit/auth_cubit.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_navigator_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_form_field.dart';
@@ -19,6 +22,13 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
   Icon passwordIcon = const Icon(Icons.password);
   Color suffixIconColor = kPrimaryColor;
   bool isSecured = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController universityController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController fatherPhoneNumberController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -36,6 +46,7 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
 
           const SizedBox(),
           CustomTextFormField(
+            controller: emailController,
             hintText: "Email",
             suffixIconColor: suffixIconColor,
             suffixIcon: IconButton(
@@ -48,6 +59,7 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
           ),
 
           CustomTextFormField(
+            controller: passwordController,
             hintText: "Password",
             suffixIconColor: suffixIconColor,
             isSecured: isSecured,
@@ -55,15 +67,14 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
               onPressed: () {
                 if (isSecured == true) {
                   setState(() {
-                    passwordIcon = const  Icon(Icons.remove_red_eye);
+                    passwordIcon = const Icon(Icons.remove_red_eye);
                     isSecured = false;
                   });
                 } else {
                   setState(() {
-                      passwordIcon = const  Icon(Icons.password);
-                    isSecured = true ;
+                    passwordIcon = const Icon(Icons.password);
+                    isSecured = true;
                   });
-                
                 }
               },
               icon: passwordIcon,
@@ -73,9 +84,22 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             height: 5,
           ),
           CustomTextFormField(
+            controller: nameController,
+            hintText: "name",
+            suffixIconColor: suffixIconColor,
+            suffixIcon: IconButton(
+              onPressed: () {},
+              icon: const  Icon(Icons.boy_rounded),
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          CustomTextFormField(
+            controller: universityController,
             hintText: "Universty",
             suffixIconColor: suffixIconColor,
-            isSecured: true,
+            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(
@@ -86,9 +110,10 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             height: 5,
           ),
           CustomTextFormField(
+            controller: phoneNumberController,
             hintText: "Phone number",
             suffixIconColor: suffixIconColor,
-            isSecured: true,
+            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
@@ -98,9 +123,10 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             height: 5,
           ),
           CustomTextFormField(
+            controller: fatherPhoneNumberController,
             hintText: "Father number",
             suffixIconColor: suffixIconColor,
-            isSecured: true,
+            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
@@ -110,9 +136,10 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             height: 5,
           ),
           CustomTextFormField(
+            controller: addressController,
             hintText: "Address",
             suffixIconColor: suffixIconColor,
-            isSecured: true,
+            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
@@ -127,6 +154,16 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
                 text: "Sign up ",
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    StudentModel studentModel = StudentModel(
+                        address: addressController.text,
+                        email: emailController.text,
+                        fatherPhoneNumber: fatherPhoneNumberController.text,
+                        name: nameController.text,
+                        phoneNumber: phoneNumberController.text,
+                        university: universityController.text);
+                    BlocProvider.of<AuthCubit>(context).registerNewUser(
+                        password: passwordController.text,
+                        studentModel: studentModel);
                   } else {
                     setState(() {
                       suffixIconColor = Colors.red;
