@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:students_collage/core/errors/failure.dart';
 import 'package:students_collage/features/authentication/data/models/student_model.dart';
-import 'package:students_collage/features/authentication/data/repos/authentication_repo_impl.dart';
+import 'package:students_collage/features/authentication/data/repos/auth_repo/authentication_repo_impl.dart';
 
 part 'auth_state.dart';
 

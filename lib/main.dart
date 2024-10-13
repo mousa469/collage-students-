@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/app_router.dart';
 import 'package:students_collage/core/utils/service_locator.dart';
-import 'package:students_collage/features/authentication/data/repos/authentication_repo_impl.dart';
+import 'package:students_collage/features/authentication/data/repos/auth_repo/authentication_repo_impl.dart';
 import 'package:students_collage/features/authentication/presentation/manager/auth_cubit/cubit/auth_cubit.dart';
 import 'package:students_collage/firebase_options.dart';
 
