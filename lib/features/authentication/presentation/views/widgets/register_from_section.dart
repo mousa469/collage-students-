@@ -29,6 +29,20 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
   TextEditingController fatherPhoneNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.dispose();
+    nameController.dispose();
+    universityController.dispose();
+    phoneNumberController.dispose();
+    fatherPhoneNumberController.dispose();
+    addressController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -89,7 +103,7 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             suffixIconColor: suffixIconColor,
             suffixIcon: IconButton(
               onPressed: () {},
-              icon: const  Icon(Icons.boy_rounded),
+              icon: const Icon(Icons.boy_rounded),
             ),
           ),
           const SizedBox(
@@ -99,7 +113,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             controller: universityController,
             hintText: "Universty",
             suffixIconColor: suffixIconColor,
-            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(
@@ -113,7 +126,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             controller: phoneNumberController,
             hintText: "Phone number",
             suffixIconColor: suffixIconColor,
-            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
@@ -126,7 +138,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             controller: fatherPhoneNumberController,
             hintText: "Father number",
             suffixIconColor: suffixIconColor,
-            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
@@ -139,7 +150,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
             controller: addressController,
             hintText: "Address",
             suffixIconColor: suffixIconColor,
-            
             suffixIcon: IconButton(
               onPressed: () {},
               icon: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),

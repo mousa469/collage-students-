@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class Failure {
+ class Failure {
   final String errMessage;
 
   const Failure({required this.errMessage});
@@ -39,5 +39,12 @@ class SavingExceptions extends Failure {
 
   factory SavingExceptions.fromFirestoreException(FirebaseException firebaseException) {
     return SavingExceptions(errMessage:  firebaseException.message!);
+  }
+}
+class fetchingDataFromFirestoreEcxeption extends Failure {
+  fetchingDataFromFirestoreEcxeption({required super.errMessage});
+
+  factory fetchingDataFromFirestoreEcxeption.fromFirestoreException(FirebaseException firebaseException) {
+    return fetchingDataFromFirestoreEcxeption(errMessage:  firebaseException.message!);
   }
 }

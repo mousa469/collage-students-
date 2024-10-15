@@ -1,12 +1,17 @@
 part of 'navigation_cubit.dart';
 
 @immutable
-sealed class NavigationState {}
-
-final class NavigationInitial extends NavigationState {}
-
-final class NavigationSuccess extends NavigationState {
+sealed class NavigationState {
+ 
   final int currentIndex;
 
-  NavigationSuccess({required this.currentIndex});
+  NavigationState({ required  this.currentIndex, });
+}
+
+final class HomeState extends NavigationState {
+  HomeState( { required  super.currentIndex,});
+}
+
+final class ProfileState extends NavigationState {
+  ProfileState({ required super.currentIndex});
 }

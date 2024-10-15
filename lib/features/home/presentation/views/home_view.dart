@@ -15,27 +15,25 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-    late List<Widget> views;
-
-  @override
-  void initState() {
-    super.initState();
-    
-    views = [
-      const HomeViewBody(),
-      ProfileViewBody(email: widget.email),
-    ];
-  }
+  Widget? viewWidget;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationCubit, NavigationState>(
+    return BlocConsumer<NavigationCubit, NavigationState>(
+      listener: (context, state) {
+        if (state is HomeState) {
+          viewWidget = const HomeViewBody();
+        } else {
+          viewWidget = ProfileViewBody(
+            email: widget.email,
+          );
+        }
+      },
       builder: (context, state) {
-        int currentIndex = state is NavigationSuccess ? state.currentIndex : 0;
         return Scaffold(
           bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: kPrimaryColor,
-              currentIndex: currentIndex,
+              currentIndex: state.currentIndex,
               onTap: (value) {
                 BlocProvider.of<NavigationCubit>(context)
                     .navigateTo(index: value);
@@ -45,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.boy_outlined), label: "Profile"),
               ]),
-          body: views[currentIndex],
+          body: viewWidget,
         );
       },
     );
