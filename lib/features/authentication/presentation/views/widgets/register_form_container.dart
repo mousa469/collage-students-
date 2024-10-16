@@ -16,16 +16,15 @@ class RegisterFormContainer extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          GoRouter.of(context).push(AppRouter.kHomeView, extra: state.email);
-          customSnackBar(errMessage: "registered successfully" , context: context);
+          GoRouter.of(context).push(AppRouter.kUserDetailsView  , extra: state.email);
+          customSnackBar(
+              errMessage: "registered successfully", context: context);
         }
-          if (state is Authfailure) {
+        if (state is Authfailure) {
           customSnackBar(errMessage: state.errMessage, context: context);
-          
         }
       },
       builder: (context, state) {
-      
         return Positioned(
           bottom: 45,
           child: SizedBox(
@@ -39,7 +38,7 @@ class RegisterFormContainer extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: ModalProgressHUD(
-                      inAsyncCall: state is Authloading ,
+                      inAsyncCall: state is Authloading,
                       child: const SingleChildScrollView(
                           child: RegisterFormSection()),
                     )),

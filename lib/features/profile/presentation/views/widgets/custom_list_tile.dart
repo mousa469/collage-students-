@@ -11,7 +11,9 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      width: MediaQuery.of(context).size.width* .16,
+      height: MediaQuery.of(context).size.height* .16,
       child: ListTile(
         
         leading:  Icon(
@@ -19,6 +21,8 @@ class CustomListTile extends StatelessWidget {
           size: 25,
         ),
         title: Text(
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           title,
           style: Styles.textStyle16,
         ),

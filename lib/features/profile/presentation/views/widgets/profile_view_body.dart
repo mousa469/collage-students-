@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:students_collage/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:students_collage/core/widgets/custom_error_message.dart';
+import 'package:students_collage/core/widgets/custom_loading_indicator.dart';
+import 'package:students_collage/features/profile/presentation/manager/profile%20data%20cubit/cubit/profile_data_cubit.dart';
 import 'package:students_collage/features/profile/presentation/views/widgets/custom_list_tile.dart';
 
 class ProfileViewBody extends StatefulWidget {
@@ -15,18 +18,32 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
   @override
   void initState() {
     super.initState();
+
+    BlocProvider.of<ProfileDataCubit>(context)
+        .fetchUserData(email: widget.email);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: titles.length,
-      itemBuilder: (context, index) {
-        return CustomListTile(
-          title: titles[index],
-          subTitle: "mooasdasd",
-          customIcon: Icons.abc_outlined,
-        );
+    return BlocBuilder<ProfileDataCubit, ProfileDataState>(
+      builder: (context, state) {
+        if (state is ProfileDataSuccess) {
+          
+          return ListView.builder(
+            itemCount:state.userData.length,
+            itemBuilder: (context, index) {
+              return CustomListTile(
+                title: BlocProvider.of<ProfileDataCubit>(context).titles[index],
+                subTitle:state.userData[index] ,
+                customIcon: BlocProvider.of<ProfileDataCubit>(context).icons[index],
+              );
+            },
+          );
+        } else if (state is ProfileDataFailure) {
+          return CustomErrorMessage(errMessage: state.errMessage);
+        } else {
+          return const CustomLoadingIndicator();
+        }
       },
     );
   }

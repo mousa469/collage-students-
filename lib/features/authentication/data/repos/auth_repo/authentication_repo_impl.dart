@@ -13,17 +13,13 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   final AddStudentInfoRepoImpl addStudentInfoRepoImpl;
 
   @override
-  Future<Either<Failure, String>> registerNewUser({required StudentModel studentModel, required String password}) async {
+  Future<Either<Failure, String>> registerNewUser(
+      {required String email, required String password}) async {
     try {
       _userCredential = await _user.createUserWithEmailAndPassword(
-          email: studentModel.email ?? '' , password: password);
+          email: email , password: password);
 
-   
-
-      addStudentInfoRepoImpl.addStudentInfoToFireStore(
-          studentModel: studentModel);
-
-      return Right(studentModel.email!);
+      return Right(email);
     } catch (e) {
       if (e is FirebaseAuthException) {
         return Left(AuthException.fromFirebaseAuth(e));

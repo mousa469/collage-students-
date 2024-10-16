@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
+import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/errors/failure.dart';
 import 'package:students_collage/features/authentication/data/models/student_model.dart';
 import 'package:students_collage/features/authentication/data/repos/save_user_info_repo/add_student_info_repo.dart';
@@ -10,22 +11,22 @@ class AddStudentInfoRepoImpl implements AddStudentInfoRepo {
   
 
   @override
-  Future<Either<Failure, void>> addStudentInfoToFireStore(
+  Future<Either<Failure, bool>> addStudentInfoToFireStore(
       {required StudentModel studentModel}) async {
     try {
       
       await users
           .add({
-            "email": studentModel.email,
-            "name": studentModel.name,
-            "university": studentModel.university,
-            "phone number": studentModel.phoneNumber,
-            "father phone number ": studentModel.fatherPhoneNumber,
-            "address": studentModel.address
+            kEmail: studentModel.email,
+            kName: studentModel.name,
+            kUniversity: studentModel.university,
+            kPhoneNumber: studentModel.phoneNumber,
+            kFatherPhoneNumber: studentModel.fatherPhoneNumber,
+            kAddress: studentModel.address
           })
           .then((value) => print("User added successfully"))
           .catchError((onError) => print("faild to add user"));
-      return right(null);
+      return right(true);
     } catch (e) {
       if (e is FirebaseException) {
         return Left(SavingExceptions.fromFirestoreException(e));

@@ -1,4 +1,6 @@
-class StudentModel {
+import 'package:students_collage/constants.dart';
+
+ class StudentModel {
   String? email;
   String? name;
   String? university;
@@ -17,12 +19,24 @@ class StudentModel {
 
   factory StudentModel.info(map) {
     return StudentModel(
-      email: map["email"] == null ? null : map["email"],
-      name: map["name"] == null ? null : map["name"],
-      university: map["university"] == null ? null : map["university"],
-      phoneNumber: map["phoneNumber"] == null ? null : map["phoneNumber"],
-      fatherPhoneNumber: map["fatherPhoneNumber"] == null ? null : map["fatherPhoneNumber"],
-      address: map["address"] == null ? null : map["address"],
+      email: map[kEmail] == null ? null : map[kEmail],
+      name: map[kName] == null ? null : map[kName],
+      university: map[kUniversity] == null ? null : map[kUniversity],
+      phoneNumber: map[kPhoneNumber] == null ? null : map[kPhoneNumber],
+      fatherPhoneNumber:
+          map[kFatherPhoneNumber] == null ? null : map[kFatherPhoneNumber],
+      address: map[kAddress] == null ? null : map[kAddress],
     );
+  }
+
+ static  List<String> convertReceivedMapToList({required Map<String,dynamic> data}) {
+    List<String> fromMap = [
+      data[kName],
+      data[kAddress],
+      data[kUniversity],
+      data[kPhoneNumber],
+      data[kFatherPhoneNumber]
+    ];
+    return fromMap;
   }
 }

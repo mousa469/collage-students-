@@ -11,10 +11,10 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthenticationRepoImpl authenticationRepoImpl;
 
   registerNewUser(
-      {required String password, required StudentModel studentModel}) async {
+      {required String password, required String email }) async {
     emit(Authloading());
     var result = await authenticationRepoImpl.registerNewUser(
-        password: password, studentModel: studentModel);
+        password: password, email:  email );
 
     result.fold((failure) {
       emit(Authfailure(errMessage: failure.errMessage));

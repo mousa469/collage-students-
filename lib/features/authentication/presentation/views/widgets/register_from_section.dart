@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:students_collage/constants.dart';
 import 'package:students_collage/core/utils/styles.dart';
-import 'package:students_collage/features/authentication/data/models/student_model.dart';
 import 'package:students_collage/features/authentication/presentation/manager/auth_cubit/cubit/auth_cubit.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_navigator_text_button.dart';
 import 'package:students_collage/features/authentication/presentation/views/widgets/custom_text_button.dart';
@@ -23,11 +22,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
   Color suffixIconColor = kPrimaryColor;
   bool isSecured = true;
   TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController universityController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController fatherPhoneNumberController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -35,11 +29,6 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
     // TODO: implement dispose
     super.dispose();
     emailController.dispose();
-    nameController.dispose();
-    universityController.dispose();
-    phoneNumberController.dispose();
-    fatherPhoneNumberController.dispose();
-    addressController.dispose();
     passwordController.dispose();
   }
 
@@ -97,83 +86,15 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
           const SizedBox(
             height: 5,
           ),
-          CustomTextFormField(
-            controller: nameController,
-            hintText: "name",
-            suffixIconColor: suffixIconColor,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.boy_rounded),
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          CustomTextFormField(
-            controller: universityController,
-            hintText: "Universty",
-            suffixIconColor: suffixIconColor,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.account_balance)),
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          CustomTextFormField(
-            controller: phoneNumberController,
-            hintText: "Phone number",
-            suffixIconColor: suffixIconColor,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          CustomTextFormField(
-            controller: fatherPhoneNumberController,
-            hintText: "Father number",
-            suffixIconColor: suffixIconColor,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          CustomTextFormField(
-            controller: addressController,
-            hintText: "Address",
-            suffixIconColor: suffixIconColor,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
 
           Align(
             child: CustomTextButton(
-                text: "Sign up ",
+                text: "Continue",
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    StudentModel studentModel = StudentModel(
-                        address: addressController.text,
-                        email: emailController.text,
-                        fatherPhoneNumber: fatherPhoneNumberController.text,
-                        name: nameController.text,
-                        phoneNumber: phoneNumberController.text,
-                        university: universityController.text);
                     BlocProvider.of<AuthCubit>(context).registerNewUser(
                         password: passwordController.text,
-                        studentModel: studentModel);
+                        email: emailController.text);
                   } else {
                     setState(() {
                       suffixIconColor = Colors.red;

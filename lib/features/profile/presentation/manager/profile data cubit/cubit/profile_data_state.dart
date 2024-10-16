@@ -6,7 +6,7 @@ sealed class ProfileDataState {}
 final class ProfileDataInitial extends ProfileDataState {}
 
 final class ProfileDataSuccess extends ProfileDataState {
-  final  Map<String, dynamic> userData;
+  final  List<String> userData;
 
   ProfileDataSuccess({required this.userData});
 }
